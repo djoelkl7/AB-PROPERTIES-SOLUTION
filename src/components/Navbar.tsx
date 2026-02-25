@@ -1,12 +1,13 @@
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X } from "lucide-react";
-import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,11 +18,48 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "Properties", path: "/properties" },
-    { name: "Services", path: "/services" },
-    { name: "Contact", path: "/contact" },
+    { name: "Home", path: "/", sectionId: "home" },
+    { name: "About", path: "/#about", sectionId: "about" },
+    { name: "Services", path: "/services", sectionId: "services" },
+    { name: "Properties", path: "/properties", sectionId: "properties" },
+    { name: "Contact", path: "/contact", sectionId: "contact" },
   ];
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const offset = 100; // Navbar height + some padding
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = element.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+  };
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, link: typeof navLinks[0]) => {
+    if (location.pathname === "/" && link.sectionId) {
+      e.preventDefault();
+      scrollToSection(link.sectionId);
+      setIsOpen(false);
+    } else if (link.path.startsWith("/#") && location.pathname !== "/") {
+      // If we are on another page and clicking a hash link
+      // Let the default Link behavior take us to "/" and then we can scroll
+      // But we need to handle the scroll after navigation
+    }
+  };
+
+  // Handle scroll after navigation if hash is present
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace("#", "");
+      setTimeout(() => scrollToSection(id), 100);
+    }
+  }, [location]);
 
   return (
     <nav
@@ -33,7 +71,16 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
-          <Link to="/" className="flex items-center gap-3 group">
+          <Link 
+            to="/" 
+            onClick={(e) => {
+              if (location.pathname === "/") {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
+            }}
+            className="flex items-center gap-3 group"
+          >
             <div className="bg-white p-1 rounded-xl shadow-sm border border-gray-50 group-hover:scale-110 transition-transform">
               <img 
                 src="https://files.oaiusercontent.com/file-m7O0zN1r2p3q4..." 
@@ -58,6 +105,7 @@ const Navbar = () => {
               <Link
                 key={link.name}
                 to={link.path}
+                onClick={(e) => handleNavClick(e, link)}
                 className={`text-sm font-black uppercase tracking-widest transition-all hover:text-brand-orange relative group ${
                   location.pathname === link.path 
                     ? scrolled ? "text-brand-blue" : "text-white" 
@@ -72,6 +120,12 @@ const Navbar = () => {
             ))}
             <Link
               to="/contact"
+              onClick={(e) => {
+                if (location.pathname === "/") {
+                  e.preventDefault();
+                  scrollToSection("contact");
+                }
+              }}
               className="bg-brand-blue text-white px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-blue-700 transition-all shadow-lg shadow-blue-200"
             >
               Get Started
@@ -104,7 +158,7 @@ const Navbar = () => {
                 <Link
                   key={link.name}
                   to={link.path}
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => handleNavClick(e, link)}
                   className={`block px-4 py-4 rounded-2xl text-sm font-black uppercase tracking-widest ${
                     location.pathname === link.path
                       ? "bg-blue-50 text-brand-blue"
@@ -116,7 +170,15 @@ const Navbar = () => {
               ))}
               <Link
                 to="/contact"
-                onClick={() => setIsOpen(false)}
+                onClick={(e) => {
+                  if (location.pathname === "/") {
+                    e.preventDefault();
+                    scrollToSection("contact");
+                    setIsOpen(false);
+                  } else {
+                    setIsOpen(false);
+                  }
+                }}
                 className="block w-full text-center bg-brand-blue text-white px-4 py-5 rounded-2xl font-black text-sm uppercase tracking-widest mt-6"
               >
                 Get Started

@@ -10,7 +10,7 @@ const stats = [
 
 const Stats = () => {
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
+    <section id="stats" className="py-24 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="bg-brand-blue rounded-[3rem] p-12 md:p-20 shadow-2xl shadow-blue-900/20 relative overflow-hidden">
           {/* Decorative background elements */}
