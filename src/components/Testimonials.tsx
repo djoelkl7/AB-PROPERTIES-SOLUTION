@@ -47,7 +47,7 @@ const Testimonials = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="bg-white p-10 rounded-3xl shadow-sm relative border border-gray-100"
+              className="bg-white p-10 rounded-[2.5rem] shadow-xl shadow-blue-900/5 relative border border-gray-50 hover:shadow-2xl hover:shadow-blue-900/10 transition-all duration-500"
             >
               <div className="absolute -top-5 left-10 bg-brand-orange p-3 rounded-2xl shadow-lg">
                 <Quote className="text-white" size={24} />

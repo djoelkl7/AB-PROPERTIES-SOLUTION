@@ -19,10 +19,10 @@ const Hero = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
-            className="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 px-4 py-2 rounded-full mb-8"
+            className="inline-flex items-center gap-2 bg-orange-50 border border-orange-100 px-4 py-2 rounded-full mb-12 mt-8"
           >
-            <span className="flex h-2 w-2 rounded-full bg-brand-blue animate-pulse"></span>
-            <span className="text-xs font-bold text-brand-blue uppercase tracking-wider">
+            <span className="flex h-2 w-2 rounded-full bg-brand-orange animate-pulse"></span>
+            <span className="text-xs font-bold text-brand-orange uppercase tracking-wider">
               Trusted Real Estate Partner
             </span>
           </motion.div>

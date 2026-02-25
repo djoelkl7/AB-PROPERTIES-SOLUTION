@@ -14,7 +14,7 @@ const About = () => {
           >
             <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl aspect-[4/5] border-8 border-white">
               <img
-                src="https://files.oaiusercontent.com/file-S4K5v6p7m8n9..."
+                src="https://files.oaiusercontent.com/file-m7O0zN1r2p3q4..."
                 alt="AB Properties Solution CEO"
                 className="w-full h-full object-cover object-top"
               />

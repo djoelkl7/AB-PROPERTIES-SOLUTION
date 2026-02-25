@@ -38,10 +38,23 @@ const Footer = () => {
           <div>
             <h4 className="text-xs font-black uppercase tracking-[0.2em] text-gray-900 mb-8">Company</h4>
             <ul className="space-y-4 text-gray-500 text-sm font-medium">
-              {["Home", "About Us", "Our Services", "Featured Projects", "Contact Us"].map((link, i) => (
+              {[
+                { name: "Home", path: "/" },
+                { name: "About Us", path: "/#about" },
+                { name: "Our Services", path: "/services" },
+                { name: "Featured Projects", path: "/properties" },
+                { name: "Contact Us", path: "/contact" }
+              ].map((link, i) => (
                 <li key={i}>
-                  <Link to={link === "Home" ? "/" : `/${link.toLowerCase().split(" ")[0]}`} className="hover:text-brand-blue transition-colors">
-                    {link}
+                  <Link 
+                    to={link.path} 
+                    onClick={() => {
+                      if (link.path === "/") window.scrollTo({ top: 0, behavior: "smooth" });
+                      else window.scrollTo(0, 0);
+                    }}
+                    className="hover:text-brand-blue transition-colors"
+                  >
+                    {link.name}
                   </Link>
                 </li>
               ))}
@@ -53,7 +66,11 @@ const Footer = () => {
             <ul className="space-y-4 text-gray-500 text-sm font-medium">
               {["Real Estate Sales", "Property Development", "Property Management", "Building & Construction"].map((service, i) => (
                 <li key={i}>
-                  <Link to="/services" className="hover:text-brand-blue transition-colors">
+                  <Link 
+                    to="/services" 
+                    onClick={() => window.scrollTo(0, 0)}
+                    className="hover:text-brand-blue transition-colors"
+                  >
                     {service}
                   </Link>
                 </li>

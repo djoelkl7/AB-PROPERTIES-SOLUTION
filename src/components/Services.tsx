@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { Home, Building2, LayoutDashboard, HardHat } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const services = [
   {
@@ -7,28 +8,32 @@ const services = [
     description: "Expert guidance for buying and selling premium properties in prime locations.",
     icon: Home,
     color: "bg-blue-50",
-    iconColor: "text-brand-blue"
+    iconColor: "text-brand-blue",
+    path: "/services/real-estate-sales"
   },
   {
     title: "Property Development",
     description: "Innovative development solutions that transform landscapes into communities.",
     icon: Building2,
     color: "bg-orange-50",
-    iconColor: "text-brand-orange"
+    iconColor: "text-brand-orange",
+    path: "/services/property-development"
   },
   {
     title: "Property Management",
     description: "Hassle-free management services ensuring your assets are well-maintained.",
     icon: LayoutDashboard,
     color: "bg-blue-50",
-    iconColor: "text-brand-blue"
+    iconColor: "text-brand-blue",
+    path: "/services/property-management"
   },
   {
     title: "Building & Construction",
     description: "World-class construction services delivering structural excellence and beauty.",
     icon: HardHat,
     color: "bg-orange-50",
-    iconColor: "text-brand-orange"
+    iconColor: "text-brand-orange",
+    path: "/services/building-construction"
   }
 ];
 
@@ -70,10 +75,10 @@ const Services = () => {
               <p className="text-gray-600 leading-relaxed mb-8">
                 {service.description}
               </p>
-              <div className="flex items-center gap-2 text-brand-blue font-bold cursor-pointer group-hover:text-brand-orange transition-colors">
+              <Link to={service.path} className="flex items-center gap-2 text-brand-blue font-bold cursor-pointer group-hover:text-brand-orange transition-colors">
                 <span className="text-sm uppercase tracking-widest">Explore Service</span>
                 <div className="h-0.5 w-6 bg-brand-blue group-hover:w-12 group-hover:bg-brand-orange transition-all duration-500"></div>
-              </div>
+              </Link>
             </motion.div>
           ))}
         </div>
