@@ -1,5 +1,6 @@
 import Hero from "../components/Hero";
 import About from "../components/About";
+import VideoShowcase from "../components/VideoShowcase";
 import Services from "../components/Services";
 import Properties from "../components/Properties";
 import Stats from "../components/Stats";
@@ -14,6 +15,7 @@ const Home = () => {
     <>
       <Hero />
       <About />
+      <VideoShowcase />
       <Services />
       <Properties />
       <Stats />
